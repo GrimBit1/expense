@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f3eee6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Expenses" />
+    <meta name="description" content="Track spending for a month on your phone." />
+    <title>Expenses</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <header class="topbar">
+        <button type="button" class="icon-btn" id="prev-month" aria-label="Previous month">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <path d="M11.5 4 L6.5 9 L11.5 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="month-block">
+          <p class="eyebrow" id="month-eyebrow">This month</p>
+          <h1 id="month-label">November 2026</h1>
+        </div>
+        <button type="button" class="icon-btn" id="next-month" aria-label="Next month">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <path d="M6.5 4 L11.5 9 L6.5 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </header>
+
+      <main class="scroll" id="main"></main>
+
+      <button type="button" class="fab" id="add-btn">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <path d="M9 3.5 V14.5 M3.5 9 H14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Add
+      </button>
+
+      <div class="backdrop" id="backdrop"></div>
+
+      <form class="sheet" id="expense-sheet" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sheet-title">
+        <div class="handle"></div>
+        <div class="sheet-head">
+          <h2 id="sheet-title">Add expense</h2>
+          <button type="button" class="text-btn" id="sheet-close">Close</button>
+        </div>
+        <label class="amount-field">
+          <span class="field-label">Amount</span>
+          <span class="amount-wrap">
+            <span class="rupee" aria-hidden="true">₹</span>
+            <input id="amount" inputmode="decimal" autocomplete="off" autocorrect="off" placeholder="0" aria-label="Amount in rupees" />
+          </span>
+        </label>
+        <p class="field-label picker-label">Category</p>
+        <div class="cat-grid" id="cat-picker"></div>
+        <div class="new-cat">
+          <button type="button" class="text-btn" id="new-cat-toggle">New category</button>
+          <div id="new-cat-form" hidden>
+            <label class="field">
+              <span>Name</span>
+              <input id="new-cat-name" maxlength="24" placeholder="Rent, pets, school" autocomplete="off" />
+            </label>
+            <div class="color-row" id="color-row"></div>
+            <p class="error" id="cat-error" role="alert"></p>
+            <button type="button" class="primary slim" id="new-cat-save">Add category</button>
+          </div>
+          <button type="button" class="danger" id="remove-cat" hidden>Remove category</button>
+        </div>
+        <label class="field">
+          <span>Note</span>
+          <input id="note" maxlength="80" placeholder="Lunch, rent, cab" enterkeyhint="done" />
+        </label>
+        <label class="field">
+          <span>Date</span>
+          <input id="date" type="date" required />
+        </label>
+        <p class="error" id="form-error" role="alert"></p>
+        <button type="submit" class="primary" id="save-btn">Save expense</button>
+        <button type="button" class="danger" id="delete-btn" hidden>Delete expense</button>
+      </form>
+
+      <form class="sheet" id="budget-sheet" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="budget-title">
+        <div class="handle"></div>
+        <div class="sheet-head">
+          <h2 id="budget-title">Monthly budget</h2>
+          <button type="button" class="text-btn" id="budget-close">Close</button>
+        </div>
+        <p class="sheet-copy" id="budget-copy">Set a spending limit for this month.</p>
+        <label class="amount-field">
+          <span class="field-label">Budget</span>
+          <span class="amount-wrap">
+            <span class="rupee" aria-hidden="true">₹</span>
+            <input id="budget-amount" inputmode="decimal" autocomplete="off" autocorrect="off" placeholder="0" aria-label="Budget in rupees" />
+          </span>
+        </label>
+        <p class="error" id="budget-error" role="alert"></p>
+        <button type="submit" class="primary">Save budget</button>
+        <button type="button" class="danger" id="clear-budget" hidden>Remove budget</button>
+      </form>
+
+      <div class="toast" id="toast" role="status"></div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
